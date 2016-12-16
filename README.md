@@ -5,14 +5,25 @@ The Freiburg Groceries Dataset consists of 5000 256x256 RGB images of 25 food cl
 ![Example images](figures/examples.png?raw=true "Example Images")
 ## Download the Dataset and Setup the Evaluation
 First, clone the repository and navigate to the src directory: <br>
-`[user@machine folder] git clone https://github.com/PhilJd/freiburg_groceries_dataset.git` <br>
+(Note: this is forked from PhilJd)
+
+`[user@machine folder] git clone https://github.com/hchengwang/freiburg_groceries_dataset.git` <br>
 `[user@machine folder] cd freiburg_groceries_dataset/src` <br>
+
+Please install Ananconda3 at ~/ <br>
+Do not add path to ~/.bashrc
+
+`[user@machine src] source environment.sh`
 
 You can download the dataset with python3: <br>
 `[user@machine src] python download_dataset.py`
 
+It will take a while to download 2.2GB into images.
+
 Then, edit `settings.py` and specify the path to your caffe installation,
 the path to your cuda installation and the gpu that should be used for training.
+
+GPU = 0 means use GPU id = 0; do NOT change it to 1.
 
 To install the evluation software the following libraries are required: caffe, cuda, boost, python3, numpy.
 The evaluation software is partly written in C++. To clone the repo and build the evluation run <br>
