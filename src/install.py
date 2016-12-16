@@ -8,11 +8,14 @@ def compile_analysis_tool():
     link = "LIBS += -L" + os.path.join(CAFFE_ROOT, "build/lib") \
            + " -L" + os.path.join(CUDA_DIR, "lib") + "\n"
     include = "INCDIRS = -I " + os.path.join(CUDA_DIR, "include") \
+              + " -I " + os.path.join(CAFFE_ROOT, ".build_release/src/") \
               + " -I " + os.path.join(CAFFE_ROOT, "include") + "\n"
+    flag = "CPPFLAGS = -DUSE_OPENCV" + "\n"
     with open("Makefile_template", 'r') as f:
         makefile_template = f.readlines()
     makefile_template.insert(5, link)
     makefile_template.insert(6, include)
+    makefile_template.insert(7, flag)
     with open("Makefile", 'w') as f:
         f.writelines(makefile_template)
     call(['make'])

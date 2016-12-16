@@ -4,7 +4,7 @@ OBJECTS = $(addsuffix .o, $(filter-out %Main %Test, $(basename $(wildcard *.cpp)
 HEADERS = $(wildcard *.h)
 LIBS =  -lcaffe -lopencv_core -lopencv_highgui -lopencv_imgproc -lcuda -lboost_system -lboost_filesystem -lglog
 
-CXX = g++ -g -std=c++11 ${INCDIRS}
+CXX = g++ -g -std=c++11 ${INCDIRS} ${CPPFLAGS}
 
 
 all:
