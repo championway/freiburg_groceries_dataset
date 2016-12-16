@@ -10,7 +10,7 @@ def create_lmdbs(split_num, cwd):
     trainfile = os.path.join(cwd, "../splits/train{0}.txt".format(split_num))
     testfile = os.path.join(cwd, "../splits/test{0}.txt".format(split_num))
     # create lmdb
-    lmdb_tool_path = os.path.join(CAFFE_ROOT, "tools/convert_imageset")
+    lmdb_tool_path = os.path.join(CAFFE_ROOT, "build/tools/convert_imageset")
     train_lmdb_path = os.path.join(cwd, "../images/trainlmdb")
     test_lmdb_path = os.path.join(cwd, "../images/testlmdb")
     # delete old lmdbs if they exist
@@ -31,7 +31,7 @@ def prepare_solver_prototxt(storage_dir):
 
 
 def train_split(split_num, cwd, solverpath):
-    caffe_path = os.path.join(CAFFE_ROOT, "tools/caffe")
+    caffe_path = os.path.join(CAFFE_ROOT, "build/tools/caffe")
     relative_model_path = ("models/bvlc_reference_caffenet/")
     weights_path = os.path.join(CAFFE_ROOT, relative_model_path,
                                 "bvlc_reference_caffenet.caffemodel")
