@@ -39,5 +39,15 @@ computing the accuracy for each class and producing a confusion matrix.
 It also links the misclassified images for each class and names them to contain
 the class they were confused with.
 
+## Test Only
+The evaluation code will generate 3 files in each split folder.
+A summary for all splits will be shown in results/
+`[user@machine folder] python test.py` <br>
+
+## Test on your testset
+You may want another testset to be tested by trained models (yes, there are 5 models trained).
+Add test.txt in the split folder, with corresponding files ready.
+`[user@machine folder] python train_testset.py` <br>
+
 ## Some Examples for all Classes
 ![Class overview images](figures/class_overview.png?raw=true "Class Overview Images")
