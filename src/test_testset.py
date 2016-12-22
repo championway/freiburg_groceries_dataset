@@ -5,45 +5,10 @@ from shutil import rmtree
 import numpy as np
 from settings import CAFFE_ROOT, GPU
 
-
-def create_lmdbs(split_num, cwd):
-    trainfile = os.path.join(cwd, "../splits/train{0}.txt".format(split_num))
-    testfile = os.path.join(cwd, "../splits/test{0}.txt".format(split_num))
-    # create lmdb
-    lmdb_tool_path = os.path.join(CAFFE_ROOT, "build/tools/convert_imageset")
-    train_lmdb_path = os.path.join(cwd, "../images/trainlmdb")
-    test_lmdb_path = os.path.join(cwd, "../images/testlmdb")
-    # delete old lmdbs if they exist
-    [rmtree(p) for p in [train_lmdb_path, test_lmdb_path] if os.path.isdir(p)]
-    call([lmdb_tool_path, "../images/", trainfile, train_lmdb_path])
-    call([lmdb_tool_path, "../images/", testfile, test_lmdb_path])
-
-def prepare_solver_prototxt(storage_dir):
-    solvertemplate_path = "../caffe_data/solvertemplate.prototxt"
-    solvername = os.path.basename(solvertemplate_path)
-    solverpath = storage_dir + solvername
-    call(["cp", solvertemplate_path, storage_dir])
-    solverfile = open(solverpath, 'a')
-    solverfile.write("snapshot_prefix: " + "\"" + storage_dir + "snapshots/\"")
-    solverfile.close()
-    return solverpath
-
-
-def train_split(split_num, cwd, solverpath):
-    caffe_path = os.path.join(CAFFE_ROOT, "build/tools/caffe")
-    relative_model_path = ("models/bvlc_reference_caffenet/")
-    weights_path = os.path.join(CAFFE_ROOT, relative_model_path,
-                                "bvlc_reference_caffenet.caffemodel")
-
-    # fine tune from bvlc reference caffe model
-    call([caffe_path, "train", "-solver", solverpath,
-          "-weights", weights_path, "-gpu", str(GPU)])
-
-
 def evaluate_results(split):
     # create the confusion matrix and link the misclassified images
     call(["./CaffeNetAnalysis/CaffeNetAnalysisMain",
-          "../splits/test{0}.txt".format(split),
+          "../splits/test.txt",
           os.path.join(os.path.abspath("../images/"), ""),
           "../caffe_data/deploy.prototxt",
           "../results/{0}/snapshots/_iter_10000.caffemodel".format(split),
@@ -70,7 +35,6 @@ def export_np_mat_with_header(mean_mat, std_dev_mat, file_to_copy_header,
             mean_mat_line = "; ".join([" +- ".join(m) for m in mean_stddev])
             f.write(first_column[i] + "; " + mean_mat_line + "; \n")
 
-
 def evaluate_mean():
     confusion_mats = []
     accuracy_mats = []
@@ -87,26 +51,11 @@ def evaluate_mean():
     export_np_mat_with_header(np.mean(confusion_mats, axis=0),
                               np.std(confusion_mats, axis=0),
                               "../results/0/confusion_matrix.csv",
-                              "../results/mean_confusion_matrix.csv", 1, 1)
+                              "../results/mean_confusion_matrix_testset.csv", 1, 1)
     export_np_mat_with_header(np.mean(accuracy_mats, axis=0),
                               np.std(accuracy_mats, axis=0),
                               "../results/0/accuracy.csv",
-                              "../results/mean_accuracy_matrix.csv")
-
-
-def check_if_training_files_exist(storage_dir):
-    if not os.path.isdir(storage_dir):
-        return
-    print("It seems there already exist files from a previous"
-          "training. Delete all files in folder results? y/n")
-    while True:
-        inp = str(input())
-        if inp.lower() == 'y':
-            for i in range(5):
-                rmtree("../results/".format(i))
-            break
-        elif inp.lower() == 'n':
-            exit()
+                              "../results/mean_accuracy_matrix_testset.csv")
 
 
 if __name__ == "__main__":
