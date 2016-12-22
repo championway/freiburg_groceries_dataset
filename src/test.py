@@ -18,6 +18,17 @@ def create_lmdbs(split_num, cwd):
     call([lmdb_tool_path, "../images/", trainfile, train_lmdb_path])
     call([lmdb_tool_path, "../images/", testfile, test_lmdb_path])
 
+def create_lmdbs_testset(split_num, cwd):
+    trainfile = os.path.join(cwd, "../splits/train{0}.txt".format(split_num))
+    testfile = os.path.join(cwd, "../splits/test.txt".format(split_num))
+    # create lmdb
+    lmdb_tool_path = os.path.join(CAFFE_ROOT, "build/tools/convert_imageset")
+    train_lmdb_path = os.path.join(cwd, "../images/trainlmdb")
+    test_lmdb_path = os.path.join(cwd, "../images/testlmdb")
+    # delete old lmdbs if they exist
+    [rmtree(p) for p in [train_lmdb_path, test_lmdb_path] if os.path.isdir(p)]
+    call([lmdb_tool_path, "../images/", trainfile, train_lmdb_path])
+    call([lmdb_tool_path, "../images/", testfile, test_lmdb_path])
 
 def prepare_solver_prototxt(storage_dir):
     solvertemplate_path = "../caffe_data/solvertemplate.prototxt"
@@ -149,7 +160,7 @@ if __name__ == "__main__":
         #check_if_training_files_exist(storage_dir)
         #os.makedirs(storage_dir)
         #solverpath = prepare_solver_prototxt("../results/{0}/".format(i))
-        create_lmdbs(i, cwd)
+        create_lmdbs_testset(i, cwd)
         # assume training is done
         #train_split(i, cwd, solverpath)
         evaluate_results_testset(i)
