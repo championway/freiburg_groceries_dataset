@@ -9,6 +9,7 @@ def compile_analysis_tool():
            + " -L" + os.path.join(CUDA_DIR, "lib") + "\n"
     include = "INCDIRS = -I " + os.path.join(CUDA_DIR, "include") \
               + " -I " + os.path.join(CAFFE_ROOT, ".build_release/src/") \
+              + " -I " + os.path.join(CAFFE_ROOT, "build/include/") \
               + " -I " + os.path.join(CAFFE_ROOT, "include") + "\n"
     flag = "CPPFLAGS = -DUSE_OPENCV" + "\n"
     with open("Makefile_template", 'r') as f:
