@@ -1,0 +1,5 @@
+./totem/Image180.jpg 2
+./buoy/Image390.jpg 0
+./buoy/Image358.jpg 0
+./totem/Image382.jpg 2
+./totem/Image321.jpg 2

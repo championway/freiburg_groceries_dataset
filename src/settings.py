@@ -2,7 +2,7 @@
 
 # path to the caffe code - if you do not have an installation of caffe,
 # clone the repo from github
-CAFFE_ROOT = "/home/user/git/caffe/"
+CAFFE_ROOT = "/home/arg_ws3/caffe/"
 
 # the gpu to use for training
 GPU = 0

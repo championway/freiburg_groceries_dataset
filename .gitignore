@@ -1,0 +1,4 @@
+*.jpg
+image*
+result*
+*.pyc
