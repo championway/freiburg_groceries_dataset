@@ -3,10 +3,11 @@ CHECKSTYLE = cpplint --recursive --filter=-build/header_guard .
 OBJECTS = $(addsuffix .o, $(filter-out %Main %Test, $(basename $(wildcard *.cpp))))
 HEADERS = $(wildcard *.h)
 LIBS =  -lcaffe -lopencv_core -lopencv_highgui -lopencv_imgproc -lcuda -lboost_system -lboost_filesystem -lglog
-LIBS += -L/home/user/git/caffe/build/lib -L/usr/local/cuda/lib
-INCDIRS = -I /usr/local/cuda/include -I /home/user/git/caffe/include
+LIBS += -L/home/arg_ws3/caffe/build/lib -L/usr/local/cuda/lib
+INCDIRS = -I /usr/local/cuda/include -I /home/arg_ws3/caffe/.build_release/src/ -I /home/arg_ws3/caffe/build/include/ -I /home/arg_ws3/caffe/include
+CPPFLAGS = -DUSE_OPENCV
 
-CXX = g++ -g -std=c++11 ${INCDIRS}
+CXX = g++ -g -std=c++11 ${INCDIRS} ${CPPFLAGS}
 
 
 all:

@@ -1,36 +1,13 @@
-name: "package_img_bvlcref_fine"
-
 layer {
-  name: "data"
-  type: "Python"
+  name: "input"
+  type: "Input"
   top: "data"
-  top: "label"
-  python_param {
-    module: "BasePythonDataLayer"
-    layer: "BasePythonDataLayer"
-  }
-  include{
-        phase: TRAIN
+  input_param {
+    # These dimensions are purely for sake of example;
+    # see infer.py for how to reshape the net to the given input size.
+    shape { dim: 1 dim: 3 dim: 227 dim: 227 }
   }
 }
-
-## The input for the test phase
-layer {
-  name: "data"
-  type: "Python"
-  top: "data"
-  top: "label"
-  python_param {
-    module: "BasePythonDataLayer"
-    layer: "BasePythonDataLayer"
-  }
-  include{
-        phase: TEST
-  }
-}
-
-
-
 layer {
   name: "conv1"
   type: "Convolution"
@@ -359,20 +336,4 @@ layer {
     }
   }
 }
-layer {
-  name: "accuracy"
-  type: "Accuracy"
-  bottom: "fc8finetune"
-  bottom: "label"
-  top: "accuracy"
-  include {
-    phase: TEST
-  }
-}
-layer {
-  name: "loss"
-  type: "SoftmaxWithLoss"
-  bottom: "fc8finetune"
-  bottom: "label"
-  top: "loss"
-}
+

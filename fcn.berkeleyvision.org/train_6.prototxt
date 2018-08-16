@@ -1,48 +1,26 @@
-name: "package_img_bvlcref_fine"
-
 layer {
   name: "data"
   type: "Python"
   top: "data"
   top: "label"
   python_param {
-    module: "BasePythonDataLayer"
-    layer: "BasePythonDataLayer"
-  }
-  include{
-        phase: TRAIN
+    module: "layer_6_channel"
+    layer: "layer_6_channel"
+    param_str: "{\'voc_dir\': \'/home/arg_ws3/david_trainings/splits/data_list/\', \'seed\': 1337, \'split\': \'train\', \'mean\': (104.00699, 116.66877, 122.67892, 104.00699, 116.66877, 122.67892)}"
   }
 }
-
-## The input for the test phase
-layer {
-  name: "data"
-  type: "Python"
-  top: "data"
-  top: "label"
-  python_param {
-    module: "BasePythonDataLayer"
-    layer: "BasePythonDataLayer"
-  }
-  include{
-        phase: TEST
-  }
-}
-
-
-
 layer {
   name: "conv1"
   type: "Convolution"
   bottom: "data"
   top: "conv1"
   param {
-    lr_mult: 0
+    lr_mult: 1
     decay_mult: 1
   }
   param {
-    lr_mult: 0
-    decay_mult: 0
+    lr_mult: 1
+    decay_mult: 1
   }
   convolution_param {
     num_output: 96
@@ -92,12 +70,12 @@ layer {
   bottom: "norm1"
   top: "conv2"
   param {
-    lr_mult: 0
+    lr_mult: 1
     decay_mult: 1
   }
   param {
-    lr_mult: 0
-    decay_mult: 0
+    lr_mult: 1
+    decay_mult: 1
   }
   convolution_param {
     num_output: 256
@@ -148,12 +126,12 @@ layer {
   bottom: "norm2"
   top: "conv3"
   param {
-    lr_mult: 0
+    lr_mult: 1
     decay_mult: 1
   }
   param {
-    lr_mult: 0
-    decay_mult: 0
+    lr_mult: 1
+    decay_mult: 1
   }
   convolution_param {
     num_output: 384
@@ -181,12 +159,12 @@ layer {
   bottom: "conv3"
   top: "conv4"
   param {
-    lr_mult: 0.01
+    lr_mult: 1
     decay_mult: 1
   }
   param {
-    lr_mult: 0.02
-    decay_mult: 0
+    lr_mult: 1
+    decay_mult: 1
   }
   convolution_param {
     num_output: 384
@@ -215,12 +193,12 @@ layer {
   bottom: "conv4"
   top: "conv5"
   param {
-    lr_mult: 0.01
+    lr_mult: 1
     decay_mult: 1
   }
   param {
-    lr_mult: 0.02
-    decay_mult: 0
+    lr_mult: 1
+    decay_mult: 1
   }
   convolution_param {
     num_output: 256

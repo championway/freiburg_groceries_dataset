@@ -46,7 +46,7 @@ def evaluate_results(split):
           "../splits/test{0}.txt".format(split),
           os.path.join(os.path.abspath("../images/"), ""),
           "../caffe_data/deploy.prototxt",
-          "../results/{0}/snapshots/_iter_10000.caffemodel".format(split),
+          "../results/{0}/snapshots/solvertemplate_iter_1000.caffemodel".format(split),
           "../classid.txt",
           "../results/{0}/".format(split), str(GPU)])
 

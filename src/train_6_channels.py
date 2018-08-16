@@ -3,7 +3,6 @@ import os
 from shutil import rmtree
 import lmdb
 import numpy as np
-import cv2
 
 from settings import CAFFE_ROOT, GPU
 import sys
@@ -18,7 +17,7 @@ def img_to_mdbs(img_path, mdb_path):
     print(img_path)
     print(mdb_path)
     num_img = sum(1 for line in open(img_path,"r"))
-    X = np.zeros((num_img, 3, 227, 227), dtype=np.uint8)
+    X = np.zeros((num_img, 6, 227, 227), dtype=np.uint8)
     
     #print ("x shape is :",X.shape[1])
     y = np.zeros(num_img, dtype=np.int64)
@@ -33,17 +32,19 @@ def img_to_mdbs(img_path, mdb_path):
             #print (jpg, type(jpg))
             img_path = "../images/"+img_path
             #print (img_path)
-            img = cv2.imread(img_path)
-            img = cv2.resize(img, (227, 227))
+            img1 = cv2.imread(img_path)
+            img1 = cv2.resize(img1, (227, 227))
+            img2 = img1
+            img_con = np.dstack((img1,img2))
             #The following comment is too slow
             #Use numpy.moveaxis to make it better
             '''for i in range(img.shape[0]):
                 for j in range(img.shape[1]):
                     for k in range(img.shape[2]):
                         X[index][k][i][j] = img[i][j][k]'''
-            X[index] = np.moveaxis(img, 2, 0)
+            X[index] = np.moveaxis(img_con, 2, 0)
             index = index + 1
-
+            #print(index)
         map_size = X.nbytes * 10
         print ("map_size is:3*32*32*1000*10 --",map_size)
         env = lmdb.open(mdb_path, map_size=map_size)
@@ -177,3 +178,16 @@ if __name__ == "__main__":
         train_split(i, cwd, solverpath)
         evaluate_results(i)
     evaluate_mean()
+    '''img1 = np.array([[[1, 2, 3],[0, 0, 0],[0, 0, 0],[0, 0, 0]],
+        [[0, 0, 0],[0, 0, 0],[4, 5, 7],[0, 0, 0]]])
+    img2 = np.array([[[0, 0, 0],[0, 0, 0],[6, 3, 9],[0, 0, 0]],
+        [[0, 0, 0],[4, 2, 4],[0, 0, 0],[0, 0, 0]]])
+    caf = np.zeros((2, 6, 2, 4), dtype=np.uint8)
+
+    print (img1.shape)
+    print (img2.shape)
+    print (caf.shape)
+    c = np.dstack((img1,img2))
+    d = np.moveaxis(c, 2, 0)
+    print (c.shape)
+    print (d.shape)'''

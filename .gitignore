@@ -2,3 +2,6 @@
 image*
 result*
 *.pyc
+*.caffemodel
+*.solverstate
+*.mdb
