@@ -70,8 +70,9 @@ class layer_6_channel(caffe.Layer):
     def reshape(self, bottom, top):
         # load image + label image pair
         tmp = self.indices[self.idx].split()
+        img_path = tmp[0].split('pcl')
         data1 = self.load_image("../images/"+tmp[0])
-        data2 = self.load_image("../images/"+tmp[0])
+        data2 = self.load_image("../images/"+img_path[0]+"roi"+img_path[1])
         self.data = self.concatenation_img(data1, data2)
         self.label = self.load_label(tmp[1])
         #print "==========================="
@@ -109,8 +110,8 @@ class layer_6_channel(caffe.Layer):
 
     def concatenation_img(self, img1, img2):
         img = np.dstack((img1, img2))
-        img = img[:,:,::-1]
-        img = img - self.mean
+        #img = img[:,:,::-1]
+        #img = img - self.mean
         img = img.transpose((2,0,1))
         return img
 
