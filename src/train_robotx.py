@@ -20,7 +20,7 @@ def create_lmdbs(split_num, cwd):
 
 
 def prepare_solver_prototxt(storage_dir):
-    solvertemplate_path = "../caffe_data/solvertemplate.prototxt"
+    solvertemplate_path = "../caffe_data/solvertemplate_robotx.prototxt"
     solvername = os.path.basename(solvertemplate_path)
     solverpath = storage_dir + solvername
     call(["cp", solvertemplate_path, storage_dir])
@@ -46,7 +46,7 @@ def evaluate_results(split):
     call(["./CaffeNetAnalysis/CaffeNetAnalysisMain",
           "../splits/test{0}.txt".format(split),
           os.path.join(os.path.abspath("../images/"), ""),
-          "../caffe_data/deploy.prototxt",
+          "../caffe_data/deploy_robotx.prototxt",
           "../results/{0}/snapshots/solvertemplate_iter_1000.caffemodel".format(split),
           "../classid.txt",
           "../results/{0}/".format(split), str(GPU)])

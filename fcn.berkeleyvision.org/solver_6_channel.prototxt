@@ -8,11 +8,11 @@ base_lr: 0.00001
 lr_policy: "step"
 gamma: 0.05
 # stepsize should also be lower
-stepsize: 1000
+stepsize: 2000
 display: 100
 max_iter: 1000
 momentum: 0.9
-weight_decay: 0.0005
+weight_decay: 0.00005
 snapshot: 1000
 snapshot_prefix: "snapshot_6/train"
 test_initialization: false

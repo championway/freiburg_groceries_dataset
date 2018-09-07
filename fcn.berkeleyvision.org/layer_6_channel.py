@@ -71,8 +71,8 @@ class layer_6_channel(caffe.Layer):
         # load image + label image pair
         tmp = self.indices[self.idx].split()
         img_path = tmp[0].split('pcl')
-        data1 = self.load_image("../images/"+tmp[0])
-        data2 = self.load_image("../images/"+img_path[0]+"roi"+img_path[1])
+        data1 = self.load_image("../images_6/"+tmp[0])
+        data2 = self.load_image("../images_6/"+img_path[0]+"roi"+img_path[1])
         self.data = self.concatenation_img(data1, data2)
         self.label = self.load_label(tmp[1])
         #print "==========================="

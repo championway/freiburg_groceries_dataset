@@ -1,4 +1,4 @@
-name: "package_img_bvlcref_fine"
+3name: "package_img_bvlcref_fine"
 
 layer {
   top: "data"

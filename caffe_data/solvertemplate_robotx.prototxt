@@ -1,6 +1,6 @@
 # Requires the downloaded bvlc_referencenet caffemodel
 # this template is run from ./src, so we need to go one dir up
-net: "../caffe_data/train_val_finetuning.prototxt"
+net: "../caffe_data/train_val_finetuning_robotx.prototxt"
 test_iter: 21  # number(testimages) / batchsize =  1021/50 = 20,42
 test_interval: 1000
 # learning rate for finetuning is lower than lr for training from scratch
