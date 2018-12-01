@@ -102,7 +102,7 @@ def check_if_training_files_exist(storage_dir):
     print("It seems there already exist files from a previous"
           "training. Delete all files in folder results? y/n")
     while True:
-        inp = str(input())
+        inp = str(raw_input())
         if inp.lower() == 'y':
             for i in range(5):
                 rmtree("../results/".format(i))

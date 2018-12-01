@@ -16,7 +16,7 @@ try:
 except:
     pass
 
-weights = "/home/arg_ws3/caffe/models/bvlc_reference_caffenet/bvlc_reference_caffenet.caffemodel"
+weights = "/home/arg_ws3/caffe/examples/net_surgery/bvlc_caffenet_6_channels.caffemodel"
 
 # init
 #caffe.set_device(int(sys.argv[1]))
@@ -32,7 +32,7 @@ solver = caffe.SGDSolver('solver_6_channel.prototxt')
 # scoring
 #val = np.loadtxt('/home/peter/caffe/data/new_brand/full_mask_final/predict_mask/val.txt', dtype=str)
 
-for i in range(25):
+for i in range(30):
     solver.step(1000)
     print "===================== Round:", i+1, "====================="
     #score.seg_tests(solver, False, val, layer='score')
